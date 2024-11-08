@@ -20,8 +20,9 @@ const LandingPage = () => {
   })
   
   const handleSearch = (e) => {
-    setSearchItem(e.target.value)
-    dispatch(filterMovies(e.target.value))
+    const searchValue = e.target.value
+    setSearchItem(searchValue)
+    dispatch(filterMovies(searchValue))
   }
 
 
@@ -62,13 +63,12 @@ const LandingPage = () => {
       }
     ]
   }
-
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8">
       <header className='flex flex-col sm:flex-row justify-between items-center bg-slate-800 p-4 sm:p-6 rounded-lg shadow-lg gap-4 sm:gap-0'>
           <h1 className='text-3xl sm:text-4xl font-bold text-white hover:text-blue-400 transition-colors'>KDN</h1>
           <button 
-              className='w-full sm:w-auto bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-colors duration-200 transform hover:scale-105'
+              className='w-full sm:w-auto bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-colors duration-200 transform hover:scale-105 shadow-md'
               onClick={() => dispatch(openModal())}
           >Login/Register</button>
       </header>
@@ -79,6 +79,11 @@ const LandingPage = () => {
         onChange={handleSearch}
         className='w-full mt-4 p-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500'
       />
+      {movies.length > 0 && searchItem && (
+        <div className="mb-4 text-lg">
+          Showing results for: {movies[0].title}
+        </div>
+      )}
 
       <Slider {...settings}>
           {movies.map((movie) => (
@@ -116,7 +121,7 @@ const LandingPage = () => {
               <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4'>Login/Register</button>
           </form>
       </Modal>
-  </div>
+    </div>
   )
 };
 export default LandingPage;
